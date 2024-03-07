@@ -12,15 +12,16 @@ phi = 0.2
 ct  = 2.04e-9
 L   = 10
 A   = 30
-x = np.linspace(1, L, 1000)
+x = np.linspace(0, L, 1000)
 t = np.linspace(0, 100, 10)
 
 solucao = solucaoPressPress(po,pw,phi,mi,k,L,ct)
 p = np.zeros((len(t),len(x)))
 
 for i in range(len(t)):
-    p[i][:] = solucao.PressPress(x,t[i])
+    p[i][:],n = solucao.PressPress(x,t[i])
 
+print(n)
 fig , ax = plt.subplots()
 plt.ylabel('Press (psi)')
 plt.xlabel('Comprimento (m)')

@@ -25,4 +25,4 @@ class solucaoPressPress:
             err = abs((sum[i]-sumOld)/sum[i])*100
             sumOld = sum[i]
         p = (self.po - self.pw)*((x/self.l)+(2/np.pi)*sum)+self.pw
-        return p
+        return p,n
