@@ -1,5 +1,6 @@
 import numpy as np
 from solucao import solucaoPressPress
+from solucaoFluxo import solucaoFluxoPressao
 import matplotlib.pyplot as plt
 
 po  = 19000000
@@ -15,19 +16,26 @@ A   = 30
 x = np.linspace(0, L, 1000)
 t = np.linspace(0, 100, 10)
 
-solucao = solucaoPressPress(po,pw,phi,mi,k,L,ct)
-p = np.zeros((len(t),len(x)))
+solucaoPP = solucaoPressPress(po,pw,phi,mi,k,L,ct)
+solucaoFP = solucaoFluxoPressao(po,qw,phi,mi,k,L,ct,A)
+pPP = np.zeros((len(t),len(x)))
+pFP = np.zeros((len(t),len(x)))
 
 for i in range(len(t)):
-    p[i][:],n = solucao.PressPress(x,t[i])
+    pPP[i][:] = solucaoPP.PressPress(x,t[i])
+    pFP[i][:] = solucaoFP.fluxoPress(x,t[i])
 
-print(n)
-fig , ax = plt.subplots()
+fig , pressPress = plt.subplots()
 plt.ylabel('Press (psi)')
 plt.xlabel('Comprimento (m)')
 plt.title('PRESSÃO PRESSÃO - ANALÍTICO')
 
-for i in range(len(t)):
-    ax.plot(x,p[i][:], label='Press Press Analítica')
+fig , fluxoPress = plt.subplots()
+plt.ylabel('Press (psi)')
+plt.xlabel('Comprimento (m)')
+plt.title('FLUXO PRESSÃO - ANALÍTICO')
 
+for i in range(len(t)):
+    pressPress.plot(x,pPP[i][:], label='Press Press Analítica')
+    fluxoPress.plot(x,pFP[i][:], label='Fluxo Press Analítica')
 plt.show()
