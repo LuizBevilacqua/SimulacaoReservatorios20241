@@ -14,15 +14,13 @@ class solucaoPressPress:
         p = np.zeros(len(x))
         sumOld = 100
         err = 1000
-        eppara = 1e-2
+        eppara = 1e-3
         n = 0
         sum = 0
         while err >= eppara:
             n += 1
             i = n-1
             sum += (np.exp(-((n*np.pi/self.l)**2)*(self.k/(self.phi*self.mi*self.ct))*t)/n*np.sin(n*np.pi*x/self.l))
-            p = (self.po - self.pw)*((x/self.l)+(2/np.pi)*sum)+self.pw
-            print(p[i])
             err = abs((sum[i]-sumOld)/sum[i])*100
             sumOld = sum[i]
         p = (self.po - self.pw)*((x/self.l)+(2/np.pi)*sum)+self.pw
